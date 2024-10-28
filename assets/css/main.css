@@ -2931,7 +2931,7 @@ button:disabled,
   width: 40%;
 }
 #banner .image img {
-  height: 100%;
+  height: 90%;
   -moz-object-fit: cover;
   -webkit-object-fit: cover;
   -ms-object-fit: cover;
@@ -3138,4 +3138,125 @@ button:disabled,
   margin-top: 1rem;
   font-size: 1.2rem;
   text-align: center;
+}
+
+.emailContainer {
+  background-color: #1a1a1a;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.emailHeader {
+  color: white;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.email-form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  gap: 10px;
+  padding: 0 15px;
+  align-items: center;
+}
+
+input[type="email"] {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  outline: none;
+}
+
+.emailButton {
+  background-color: #ff4141;
+  color: white !important;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #b50505;
+}
+
+.message {
+  margin-top: 15px;
+  color: white;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.stories-section {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stories-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.story-card {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  height: 400px;
+}
+
+.story-card:hover {
+  transform: translateY(-5px);
+}
+
+.story-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.story-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+}
+
+.story-tag {
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.story-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.story-meta {
+  font-size: 0.9rem;
+  opacity: 0.8;
 }
