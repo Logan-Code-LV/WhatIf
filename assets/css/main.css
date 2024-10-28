@@ -3099,9 +3099,11 @@ button:disabled,
 
 /* Book Carousel Styles */
 .carousel-container {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .carousel-header {
@@ -3123,7 +3125,21 @@ button:disabled,
 }
 
 .carousel-item {
-  flex: 0 0 300px;
+  flex: 0 0 auto;
+  width: calc((100% - 4rem) / 3); /* 3 items with 2rem gaps */
+  min-width: 200px;
+}
+
+@media (max-width: 768px) {
+  .carousel-item {
+    width: calc((100% - 2rem) / 2); /* 2 items with 2rem gap */
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-item {
+    width: 100%; /* Single item */
+  }
 }
 
 .carousel-item img {
@@ -3149,7 +3165,7 @@ button:disabled,
 .emailHeader {
   color: white;
   font-family: system-ui, -apple-system, sans-serif;
-  font-size: 24px;
+  font-size: 21px;
   margin-bottom: 20px;
 }
 
@@ -3259,4 +3275,11 @@ button:hover {
 .story-meta {
   font-size: 0.9rem;
   opacity: 0.8;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+  font-size: 16px;
 }

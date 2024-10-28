@@ -1,42 +1,66 @@
 document.addEventListener("DOMContentLoaded", function () {
   const carousel = document.querySelector(".carousel");
   const items = document.querySelectorAll(".carousel-item");
-  const itemWidth = items[0].offsetWidth;
   const gap = 32; // 2rem gap
-  const visibleItems = 3; // Number of items visible at once
 
-  // Calculate the position to move for each slide
-  const slideMove = -(itemWidth + gap);
-  let currentIndex = 0;
+  function updateCarousel() {
+    const containerWidth =
+      document.querySelector(".carousel-wrapper").offsetWidth;
+    let visibleItems = 3;
 
-  // Clone enough items from the start and append them to the end
-  // This ensures we always have enough items visible
-  for (let i = 0; i < visibleItems; i++) {
-    const clone = items[i].cloneNode(true);
-    carousel.appendChild(clone);
+    // Determine number of visible items based on screen width
+    if (window.innerWidth <= 480) {
+      visibleItems = 1;
+    } else if (window.innerWidth <= 768) {
+      visibleItems = 2;
+    }
+
+    const itemWidth =
+      (containerWidth - gap * (visibleItems - 1)) / visibleItems;
+
+    // Update item widths
+    items.forEach((item) => {
+      item.style.width = `${itemWidth}px`;
+    });
+
+    // Remove existing clones
+    const clones = carousel.querySelectorAll(".carousel-item-clone");
+    clones.forEach((clone) => clone.remove());
+
+    // Add new clones
+    for (let i = 0; i < visibleItems; i++) {
+      const clone = items[i].cloneNode(true);
+      clone.classList.add("carousel-item-clone");
+      carousel.appendChild(clone);
+    }
+
+    // Reset position
+    currentIndex = 0;
+    carousel.style.transform = `translateX(0)`;
+
+    return itemWidth;
   }
+
+  let currentIndex = 0;
+  let itemWidth = updateCarousel();
 
   function slideCarousel() {
     currentIndex++;
-
+    const slideMove = -(itemWidth + gap);
     carousel.style.transition = "transform 0.5s ease-in-out";
     carousel.style.transform = `translateX(${currentIndex * slideMove}px)`;
 
-    // When we reach the original last item
     if (currentIndex >= items.length) {
-      // After the transition ends, quietly reset to the first real item
       setTimeout(() => {
         currentIndex = 0;
         carousel.style.transition = "none";
         carousel.style.transform = `translateX(0)`;
-      }, 500); // Match this to your transition duration
+      }, 500);
     }
   }
 
-  // Set up the interval for automatic rotation
   let carouselInterval = setInterval(slideCarousel, 3000);
 
-  // Pause on hover
   const carouselWrapper = document.querySelector(".carousel-wrapper");
   carouselWrapper.addEventListener("mouseenter", () => {
     clearInterval(carouselInterval);
@@ -46,9 +70,12 @@ document.addEventListener("DOMContentLoaded", function () {
     carouselInterval = setInterval(slideCarousel, 3000);
   });
 
-  // Ensure the carousel wrapper shows only three items
-  carouselWrapper.style.width = `${
-    itemWidth * visibleItems + gap * (visibleItems - 1)
-  }px`;
-  carouselWrapper.style.margin = "0 auto";
+  // Update carousel on window resize
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      itemWidth = updateCarousel();
+    }, 250);
+  });
 });
